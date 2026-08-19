@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Tailwind v4 class-based dark mode (paired with next-themes attribute="class") */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Base surface — deep desaturated navy, not pure black */
+  --background: oklch(0.15 0.025 262);
+  --foreground: oklch(0.96 0.01 262);
+  --muted-foreground: oklch(0.66 0.02 262);
+  --border: oklch(1 0 0 / 12%);
+  --ring: oklch(0.75 0.14 290);
+
+  /* Signature aurora accent, used sparingly */
+  --accent-cyan: oklch(0.78 0.13 200);
+  --accent-violet: oklch(0.62 0.19 300);
+
+  --glass-bg: oklch(1 0 0 / 5%);
+  --glass-bg-strong: oklch(1 0 0 / 8%);
+  --glass-border: oklch(1 0 0 / 10%);
+  --radius: 1rem;
+}
+
+.dark {
+  --background: oklch(0.15 0.025 262);
+  --foreground: oklch(0.96 0.01 262);
+  --muted-foreground: oklch(0.66 0.02 262);
+  --border: oklch(1 0 0 / 12%);
+  --glass-bg: oklch(1 0 0 / 5%);
+  --glass-bg-strong: oklch(1 0 0 / 8%);
+  --glass-border: oklch(1 0 0 / 10%);
+}
+
+/* Explicit light theme — cool-tinted paper, not stark white */
+:root:not(.dark) {
+  --background: oklch(0.985 0.004 262);
+  --foreground: oklch(0.22 0.02 262);
+  --muted-foreground: oklch(0.48 0.02 262);
+  --border: oklch(0 0 0 / 8%);
+  --glass-bg: oklch(0 0 0 / 3%);
+  --glass-bg-strong: oklch(0 0 0 / 5%);
+  --glass-border: oklch(0 0 0 / 7%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-violet: var(--accent-violet);
+
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-space-grotesk);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-plex-mono);
+
+  --radius-2xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+  }
+
+  .glow-orb {
+    position: absolute;
+    top: -10%;
+    left: 50%;
+    width: 480px;
+    height: 480px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, var(--accent-violet) 0%, var(--accent-cyan) 35%, transparent 70%);
+    opacity: 0.15;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(1 0 0 / 15%);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}
